@@ -1,10 +1,22 @@
-'use client';
-import React from 'react';
+"use client";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { ToastContext } from "../../../../components/ToastProvider/ToastProvider";
 
 function ContactPage() {
+  const router = useRouter();
+
+  const { createToast } = React.useContext(ToastContext);
+
   return (
     <main>
-      <form>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          router.back();
+          createToast("Your message was received", "success");
+        }}
+      >
         <label htmlFor="name">Name:</label>
         <input id="name" required={true} />
 
